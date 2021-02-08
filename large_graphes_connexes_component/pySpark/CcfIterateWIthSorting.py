@@ -30,8 +30,8 @@ def traitementCcfWIthSecondarySorting(key, values):
     return resultat
 tps_EUR1 = time.time()
 # graphe=sc.textFile("/home/bboydhaouse/Bureau/Bigdata/pythonProject/large_graphes_connexes_component/testFiles/test.txt")
-# graphe=sc.textFile("/home/bboydhaouse/Bureau/Bigdata/pythonProject/large_graphes_connexes_component/testFiles/facebook_combined.txt")
-graphe=sc.textFile("/home/bboydhaouse/Bureau/Bigdata/pythonProject/large_graphes_connexes_component/testFiles/twitter_combined.txt")
+graphe=sc.textFile("/home/bboydhaouse/Bureau/Bigdata/pythonProject/large_graphes_connexes_component/testFiles/facebook_combined.txt")
+# graphe=sc.textFile("/home/bboydhaouse/Bureau/Bigdata/pythonProject/large_graphes_connexes_component/testFiles/twitter.txt")
 
 
 entre=graphe.map(lambda x : x.split(' ')).map(lambda x : (x[0],x[1]))
@@ -46,6 +46,7 @@ while acc.value != 0:
     dedup=iterate.map(lambda x:((x[0],x[1]),0)).reduceByKey(lambda x,y:x+y).flatMap(lambda x: [(x[0][0],x[0][1])] if x[0][1]!=x[0][0] else [])
     entre=dedup
     result = dedup.collect()
+
 tps_EUR2 = time.time()
 executionTime = ((tps_EUR2-tps_EUR1)*1000)
 print(dedup.count())

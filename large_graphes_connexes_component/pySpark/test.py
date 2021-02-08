@@ -1,16 +1,6 @@
-import random
-import time
-
-import numpy as np
-
-from pip._vendor.contextlib2 import nullcontext
-from pyspark import *
-# Spark Configurations
-conf = SparkConf()
-conf.set("spark.master", "local[*]")
-conf = conf.setAppName('WordCount')
+from pyspark import SparkContext, SparkConf
+conf = SparkConf().setAppName("pyspark")
 sc = SparkContext(conf=conf)
-
 
 
 def traitement(key,values):
@@ -28,7 +18,7 @@ def traitement(key,values):
 
 iterations=0
 #charger les données
-graphe=sc.textFile("/home/bboydhaouse/Bureau/Bigdata/pythonProject/large_graphes_connexes_component/facebook_combined.txt")
+graphe=sc.textFile("test.txt")
 
 sortie = graphe.map(lambda x : x.split(' ')).map(lambda x : (x[0],x[1]))
 acc = sc.accumulator(1)
@@ -43,5 +33,4 @@ while(acc.value!=0):
     print(acc.value)
     iterations+=1
 
-sortie.saveAsTextFile("/ures/hadoop/sortie.txt")
-print(iterations)
+sortie.saveAsTextFile("sortieAlgo")
