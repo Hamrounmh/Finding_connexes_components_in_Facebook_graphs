@@ -28,9 +28,9 @@ def traitement(key,values):
 
 iterations=0
 #charger les données
-graphe=sc.textFile("/home/bboydhaouse/Bureau/Bigdata/pythonProject/large_graphes_connexes_component/testFiles/facebook_combined.txt")
+graphe=sc.textFile("/home/bboydhaouse/Bureau/Bigdata/pythonProject/large_graphes_connexes_component/testFiles/test.txt")
 
-sortie = graphe.map(lambda x : x.split(' ')).map(lambda x : (x[0],x[1]))
+sortie = graphe.map(lambda x : x.split()).map(lambda x : (x[0],x[1]))
 stop =1
 acc = sc.accumulator(0)
 while stop != 0:
