@@ -1,0 +1,3 @@
+
+pour modifier le fichier : nano test.py
+pour lancer le spark : park-submit --master yarn test.py
