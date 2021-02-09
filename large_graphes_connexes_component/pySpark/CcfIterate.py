@@ -28,18 +28,21 @@ def traitement(key,values):
 
 iterations=0
 #charger les données
-graphe=sc.textFile("/home/bboydhaouse/Bureau/Bigdata/pythonProject/large_graphes_connexes_component/testFiles/twitter_combined.txt")
+graphe=sc.textFile("/home/bboydhaouse/Bureau/Bigdata/pythonProject/large_graphes_connexes_component/testFiles/facebook_combined.txt")
 
 sortie = graphe.map(lambda x : x.split(' ')).map(lambda x : (x[0],x[1]))
-acc = sc.accumulator(1)
-while(acc.value!=0):
-    acc = sc.accumulator(0)
+stop =1
+acc = sc.accumulator(0)
+while stop != 0:
+    acc.value = 0
     graphe_direction1 = sortie
     graphe_direction2 = graphe_direction1.map(lambda x: (x[1], x[0]))
     graphe_ccf = graphe_direction1.union(graphe_direction2).groupByKey().mapValues(list)
     sortie = graphe_ccf.flatMap(lambda x: traitement(x[0], x[1]))
     resultat = sortie.collect()
     iterations+=1
+    stop = acc.value
 
 # sortie.saveAsTextFile("/ures/hadoop/sortie.txt")
-print(acc.value)
+print(stop)
+print(resultat)
