@@ -18,7 +18,7 @@ def traitement(key,values):
 
 iterations=0
 #charger les données
-graphe=sc.textFile("test.txt")
+graphe=sc.textFile("twitter_combined.txt")
 
 sortie = graphe.map(lambda x : x.split(' ')).map(lambda x : (x[0],x[1]))
 acc = sc.accumulator(1)
@@ -29,8 +29,7 @@ while(acc.value!=0):
     graphe_ccf = graphe_direction1.union(graphe_direction2).groupByKey().mapValues(list)
     sortie = graphe_ccf.flatMap(lambda x: traitement(x[0], x[1]))
     resultat = sortie.collect()
-    print(resultat)
-    print(acc.value)
     iterations+=1
 
-sortie.saveAsTextFile("sortieCcfIterate")
+solution = sc.parallelize([acc.value])
+solution.saveAsTextFile("sortieCcfIterate")

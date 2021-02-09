@@ -28,7 +28,7 @@ def traitement(key,values):
 
 iterations=0
 #charger les données
-graphe=sc.textFile("/home/bboydhaouse/Bureau/Bigdata/pythonProject/large_graphes_connexes_component/facebook_combined.txt")
+graphe=sc.textFile("/home/bboydhaouse/Bureau/Bigdata/pythonProject/large_graphes_connexes_component/testFiles/twitter_combined.txt")
 
 sortie = graphe.map(lambda x : x.split(' ')).map(lambda x : (x[0],x[1]))
 acc = sc.accumulator(1)
@@ -39,9 +39,7 @@ while(acc.value!=0):
     graphe_ccf = graphe_direction1.union(graphe_direction2).groupByKey().mapValues(list)
     sortie = graphe_ccf.flatMap(lambda x: traitement(x[0], x[1]))
     resultat = sortie.collect()
-    print(resultat)
-    print(acc.value)
     iterations+=1
 
-sortie.saveAsTextFile("/ures/hadoop/sortie.txt")
-print(iterations)
+# sortie.saveAsTextFile("/ures/hadoop/sortie.txt")
+print(acc.value)
