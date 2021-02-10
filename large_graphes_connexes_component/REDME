@@ -13,6 +13,7 @@ googe web text file : wget https://drive.google.com/u/0/uc?id=1C_AKKrr0wkNvJHoqV
 
 test file from example : touch test.txt
                             nano test.txt
+
                            <copy file content from python>
                             hdfs dfs -put test.txt /user/hadoop/
 
@@ -35,16 +36,15 @@ Ccf with secondary sorting lien :  wget https://drive.google.com/u/0/uc?id=1ueaP
 
 
 pour modifier le fichier : nano test.py
-pour lancer le spark : spark-submit --master yarn --executor-memory 10G --driver-memory 10G  test.py
-                        spark-submit --executor-memory 10G  test.py
-                        spark-submit --executor-memory 4G --driver-memory 10G
+pour lancer le spark :
 
-                         spark-submit --master yarn    --deploy-mode cluster     --driver-memory 4g     --executor-memory 2g     --executor-cores 2 HadoopPySparkCcfIterate.py
-    --deploy-mode cluster \
-    --driver-memory 4g \
-    --executor-memory 2g \
-    --executor-cores 1 \
-    --queue thequeue
+spark-submit --master yarn --executor-memory 10G --driver-memory 10G  test.py
+spark-submit --executor-memory 10G  test.py
+spark-submit --executor-memory 4G --driver-memory 10G
+spark-submit --master yarn    --deploy-mode cluster     --driver-memory 4g     --executor-memory 2g     --executor-cores 1 HadoopPySparkCcfIterate.py
+spark-submit --master yarn    --deploy-mode cluster    --num-executors 5  --driver-memory 2g     --executor-memory 2g     --executor-cores 1  HadoopPySparkCcfIterate.py
+spark-submit --master yarn    --deploy-mode cluster    --num-executors 10  --driver-memory 5500M     --executor-memory 1900M     --executor-cores 1  HadoopPySparkCcfIterate.py
+
 
 
 consulter les fichiers de sortie : hdfs dfs -cat /user/hadoop/sortieCcfIterate/part*

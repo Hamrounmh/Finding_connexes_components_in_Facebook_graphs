@@ -1,20 +1,11 @@
-import random
-import time
+from pyspark import SparkContext, SparkConf
 
-import numpy as np
-
-from pip._vendor.contextlib2 import nullcontext
-from pyspark import *
-# Spark Configurations
-conf = SparkConf()
-conf.set("spark.master", "local[*]")
-conf = conf.setAppName('WordCount')
+conf = SparkConf().setAppName("pyspark")
 sc = SparkContext(conf=conf)
 
-
-
-
-
+iterations = 0
+# charger les données
+graphe = sc.textFile("twitter_combined.txt")
 
 
 def traitementCcfWIthSecondarySorting(key, values):
@@ -28,10 +19,6 @@ def traitementCcfWIthSecondarySorting(key, values):
                 acc.add(1)
 
     return resultat
-tps_EUR1 = time.time()
-#graphe=sc.textFile("/home/bboydhaouse/Bureau/Bigdata/pythonProject/large_graphes_connexes_component/testFiles/test.txt")
-#graphe=sc.textFile("/home/bboydhaouse/Bureau/Bigdata/pythonProject/large_graphes_connexes_component/testFiles/facebook_combined.txt")
-graphe=sc.textFile("/home/bboydhaouse/Bureau/Bigdata/pythonProject/large_graphes_connexes_component/testFiles/twitter_combined.txt")
 
 
 entre=graphe.map(lambda x : x.split(' '))
@@ -46,11 +33,5 @@ while stop !=0:
     result = dedup.collect()
     stop=acc.value
 
-tps_EUR2 = time.time()
-executionTime = ((tps_EUR2-tps_EUR1)*1000)
-
-print(executionTime)
-print(result)
-
-
-## CCF itirates with secondary sorting
+solution = sc.parallelize([result])
+solution.saveAsTextFile("sortieCcfIterateSorting")

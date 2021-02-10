@@ -42,3 +42,4 @@ for line in sys.stdin:
             tmplist = [value]
 if key == currentKey:
     conteur += CcfIteration(currentKey, tmplist)
+print(conteur)
