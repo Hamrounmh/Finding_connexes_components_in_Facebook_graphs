@@ -5,7 +5,7 @@ the documentation & the explanation of all algorithmes and sources are in file F
 # requirments : 
 you need to install : 
 - Pycharm to run algorithmes in local envirement; 
-- For large graphes you need to execute a AWS  calculatings machine, flow the steps in file : AWS_Installation 
+- For large graphes you need to execute a AWS  calculatings machine, flow the steps in file : Hadoop-MR-Spark-on-AWS-viaRosettaHub_explications.pdf
 # Links : 
 to dowload the files in your AWS machine, links are in file Download&tesst.
 #Results : 
